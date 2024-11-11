@@ -20,6 +20,6 @@ MonoBehaviour:
   hpPerLv: 10
   spd: 150
   def: 0
-  defPerLv: 3
+  defPerLv: 0
   atk: 5
   atkPerLv: 2
