@@ -57,7 +57,7 @@ public class SocketManager : TCPSocketManagerBase<SocketManager>
     public void SpawnEnemyMonsterNotification(GamePacket gamePacket)
     {
         var response = gamePacket.SpawnEnemyMonsterNotification;
-        GameManager.instance.AddMonster(new MonsterData() { MonsterId = response.MonsterId, MonsterNumber = response.MonsterNumber, Level = GameManager.instance.level }, ePlayer.another);
+        GameManager.instance.AddMonster(new MonsterData() { MonsterId = response.MonsterId, MonsterNumber = response.MonsterNumber, Level = response.MonsterLevel }, ePlayer.another);
     }
 
     public void StateSyncNotification(GamePacket gamePacket)
@@ -82,7 +82,7 @@ public class SocketManager : TCPSocketManagerBase<SocketManager>
     public void SpawnMonsterResponse(GamePacket gamePacket)
     {
         var response = gamePacket.SpawnMonsterResponse;
-        GameManager.instance.AddMonster(new MonsterData() { MonsterId = response.MonsterId, MonsterNumber = response.MonsterNumber, Level = GameManager.instance.level }, ePlayer.me);
+        GameManager.instance.AddMonster(new MonsterData() { MonsterId = response.MonsterId, MonsterNumber = response.MonsterNumber, Level = response.MonsterLevel }, ePlayer.me);
     }
 
     public void TowerPurchaseResponse(GamePacket gamePacket)

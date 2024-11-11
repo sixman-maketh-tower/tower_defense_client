@@ -229,11 +229,13 @@ public class GameManager : MonoSingleton<GameManager>
         tower.Init(DataManager.instance.GetData<TowerDataSO>("TOW00001"));
         tower.towerId = data.TowerId;
         tower.player = player;
+        tower.attackable = true;
         towers.Add(tower);
     }
 
     public void SetTower(int towerId)
     {
+        towers.Last().attackable = true;
         towers.Last().towerId = towerId;
     }
 

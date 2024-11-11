@@ -17,6 +17,7 @@ public class Tower : WorldBase<TowerDataSO>
     public ePlayer player;
 
     bool isStop = false;
+    public bool attackable = false;
 
     public override void Init(BaseDataSO data)
     {
@@ -39,16 +40,21 @@ public class Tower : WorldBase<TowerDataSO>
 
     public void OnAttackMonster(Monster monster)
     {
+
         if (monster == null) return;
-        var beam = Instantiate(ResourceManager.instance.LoadAsset<BeamObject>("BeamObject"), beamPosition).SetTimer().SetTarget(monster);
-        isAttackDelay = true;
-        monster.SetDamage(power);
-        if (player == ePlayer.me)
+
+        if (attackable)
         {
-            StartCoroutine(OnCooldown());
-            GamePacket packet = new GamePacket();
-            packet.TowerAttackRequest = new C2STowerAttackRequest() { MonsterId = monster.monsterId, TowerId = towerId };
-            SocketManager.instance.Send(packet);
+            var beam = Instantiate(ResourceManager.instance.LoadAsset<BeamObject>("BeamObject"), beamPosition).SetTimer().SetTarget(monster);
+            isAttackDelay = true;
+            monster.SetDamage(power);
+            if (player == ePlayer.me)
+            {
+                StartCoroutine(OnCooldown());
+                GamePacket packet = new GamePacket();
+                packet.TowerAttackRequest = new C2STowerAttackRequest() { MonsterId = monster.monsterId, TowerId = towerId };
+                SocketManager.instance.Send(packet);
+            }
         }
     }
 
